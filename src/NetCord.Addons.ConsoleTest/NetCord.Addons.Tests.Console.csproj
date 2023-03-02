@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetCord.Addons.Hosting\NetCord.Addons.Hosting.csproj" />
+	<ProjectReference Include="..\NetCord.Addons.Services\NetCord.Addons.Services.csproj" />
   </ItemGroup>
 
 </Project>

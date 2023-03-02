@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\Application\" />
-    <Folder Include="Contexts\Interaction\" />
-    <Folder Include="Contexts\Text\" />
-    <Folder Include="Helpers\Properties\" />
-    <Folder Include="Modules\Application\" />
-    <Folder Include="Modules\Interaction\" />
-    <Folder Include="Modules\Text\" />
+    <Folder Include="ApplicationCommands\Contexts\" />
+    <Folder Include="ApplicationCommands\Helpers\" />
+    <Folder Include="Interactions\Modules\" />
+    <Folder Include="Interactions\Contexts\" />
+    <Folder Include="TextCommands\Modules\" />
+    <Folder Include="TextCommands\Contexts\" />
+    <Folder Include="TextCommands\Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.83" />
   </ItemGroup>
 
 </Project>

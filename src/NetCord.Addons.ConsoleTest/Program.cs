@@ -14,7 +14,7 @@ host.ConfigureHostConfiguration(options =>
 
 host.AddGatewayClient<Bot>((hostContext, gatewayContext) =>
 {
-    gatewayContext.Token = hostContext.Configuration["TOKEN"];
+    gatewayContext.Token = hostContext.Configuration["TOKEN"]!;
     gatewayContext.Intents = GatewayIntents.All;
 });
 
@@ -24,7 +24,7 @@ await app.RunAsync();
 
 public class Bot : GatewayService
 {
-    public Bot(GatewayClient client, ILoggerFactory loggerFactory, IOptions<GatewayConfigurationOptions> options) 
+    public Bot(GatewayClient client, ILoggerFactory loggerFactory, IOptions<GatewayConfigurationOptions> options)
         : base(client, loggerFactory, options)
     {
     }
