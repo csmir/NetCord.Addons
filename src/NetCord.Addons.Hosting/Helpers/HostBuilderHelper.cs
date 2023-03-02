@@ -23,19 +23,20 @@ namespace NetCord.Addons.Hosting
         /// <param name="configure"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHostBuilder AddGatewayClient(this IHostBuilder hostBuilder, Action<HostBuilderContext, GatewayHostingContext> configure)
+        public static IHostBuilder AddGatewayClient<T>(this IHostBuilder hostBuilder, Action<HostBuilderContext, GatewayHostingContext> configure)
+            where T : GatewayService
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
                 var gatewayContext = new GatewayHostingContext();
                 configure(context, gatewayContext);
 
-                services.Configure<GatewayConfigurationOptions>(context.Configuration.GetSection(gatewayContext.OptionsRoot));
+                services.Configure<GatewayConfigurationOptions>(options =>
+                {
+                    options.Token = gatewayContext.Token!;
+                });
 
-                if (gatewayContext.Configuration is null)
-                    throw new ArgumentNullException(nameof(gatewayContext.Configuration));
-
-                services.AddSingleton(gatewayContext.Configuration);
+                services.AddClientConfiguration(gatewayContext);
                 services.AddSingleton<TokenFactory>();
 
                 services.TryAddEnumerable(ServiceDescriptor.Singleton<GatewayClient>(x =>
@@ -46,6 +47,8 @@ namespace NetCord.Addons.Hosting
 
                     return new(token, config);
                 }));
+
+                services.AddHostedService<T>();
             });
             return hostBuilder;
         }

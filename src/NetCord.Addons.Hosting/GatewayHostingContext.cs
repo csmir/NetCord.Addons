@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Hosting;
 using NetCord.Gateway;
+using NetCord.Gateway.WebSockets;
+using NetCord.Rest;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +17,56 @@ namespace NetCord.Addons.Hosting
     public class GatewayHostingContext
     {
         /// <summary>
-        ///     The options root for client setup.
+        ///     The variable name to fetch tokens from.
         /// </summary>
-        public string OptionsRoot { get; set; } = string.Empty;
+        [DisallowNull]
+        public string Token { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? HostName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? LargeThreshold { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ShardProperties? Shard { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PresenceProperties? Presence { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ConnectionPropertiesProperties? ConnectionProperties { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IWebSocket? WebSocket { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisallowNull]
+        public ApiVersion Version { get; set; } = ApiVersion.V10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RestClientConfiguration? RestClientConfiguration { get; set; }
 
         /// <summary>
         ///     The configuration used to configure the <see cref="GatewayClient"/>.
         /// </summary>
-        public GatewayClientConfiguration Configuration { get; set; } = new();
+        [DisallowNull]
+        public GatewayIntents Intents { get; set; } = GatewayIntents.AllNonPrivileged;
     }
 }
