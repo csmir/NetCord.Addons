@@ -1,5 +1,4 @@
 ﻿using NetCord.Addons.Services.Interactions;
-using NetCord.Addons.Services.Interactions.Modals.Attributes;
 using NetCord.Rest;
 
 namespace NetCord.Addons.Tests.Console.Modules.Modals

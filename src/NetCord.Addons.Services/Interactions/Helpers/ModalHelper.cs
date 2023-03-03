@@ -11,6 +11,7 @@ namespace NetCord.Addons.Services.Interactions
     public static class ModalHelper
     {
         private readonly static Lazy<Dictionary<string, ModalInfo>> _modalCache = new(isThreadSafe: true);
+        private readonly static object _lock = new();
 
         /// <summary>
         ///     Turns an modalInfo into newly created <see cref="ModalProperties"/> based on the attributed values.
@@ -40,21 +41,24 @@ namespace NetCord.Addons.Services.Interactions
         /// <returns>A new <see cref="ModalProperties"/> from the provided <paramref name="modal"/>.</returns>
         public static ModalProperties ToModalProperties(this Modal modal, char seperator, params string[] parameters)
         {
-            if (!_modalCache.Value.TryGetValue(modal.CustomId, out var modalInfo))
-                modalInfo = modal.Cache();
-
-            var sb = new StringBuilder();
-
-            sb.Append(modalInfo.CustomId);
-            foreach (var parameter in parameters)
+            lock (_lock)
             {
-                sb.Append(seperator);
-                sb.Append(parameter);
+                if (!_modalCache.Value.TryGetValue(modal.CustomId, out var modalInfo))
+                    modalInfo = modal.Cache(true);
+
+                var sb = new StringBuilder();
+
+                sb.Append(modalInfo.CustomId);
+                foreach (var parameter in parameters)
+                {
+                    sb.Append(seperator);
+                    sb.Append(parameter);
+                }
+
+                var mp = new ModalProperties(sb.ToString(), modalInfo.Title, modalInfo.ToInputProperties());
+
+                return mp;
             }
-
-            var mp = new ModalProperties(sb.ToString(), modalInfo.Title, modalInfo.ToInputProperties());
-
-            return mp;
         }
 
         /// <summary>
@@ -83,11 +87,15 @@ namespace NetCord.Addons.Services.Interactions
         /// <param name="modal"></param>
         /// <returns>A new <see cref="ModalInfo"/> that has been cached for later use.</returns>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public static ModalInfo Cache(this Modal modal)
+        public static ModalInfo Cache(this Modal modal, bool isLocked = false)
         {
             var info = new ModalInfo(modal);
 
-            _modalCache.Value.Add(info.CustomId, info);
+            if (isLocked)
+                lock (_lock)
+                    _modalCache.Value.Add(info.CustomId, info);
+            else
+                _modalCache.Value.Add(info.CustomId, info);
 
             return info;
         }
@@ -102,19 +110,22 @@ namespace NetCord.Addons.Services.Interactions
         public static T Modal<T>(this ModalSubmitInteractionContext context)
             where T : Modal, new()
         {
-            var obj = new T();
+            lock (_lock)
+            {
+                var obj = new T();
 
-            var index = context.Interaction.Data.CustomId.IndexOf(':');
+                var index = context.Interaction.Data.CustomId.IndexOf(':');
 
-            var info = _modalCache.Value[context.Interaction.Data.CustomId[..index]];
+                var info = _modalCache.Value[context.Interaction.Data.CustomId[..index]];
 
-            if (info.Inputs.Length != context.Components.Count)
-                throw new ArgumentOutOfRangeException(nameof(context), $"The cached modalInfo length does not match the received component length.");
+                if (info.Inputs.Length != context.Components.Count)
+                    throw new ArgumentOutOfRangeException(nameof(context), $"The cached modalInfo length does not match the received component length.");
 
-            for (int i = 0; i < info.Inputs.Length; i++)
-                info.Inputs[i].Property.SetValue(obj, context.Components[i]);
+                for (int i = 0; i < info.Inputs.Length; i++)
+                    info.Inputs[i].Property.SetValue(obj, context.Components[i]);
 
-            return obj;
+                return obj;
+            }
         }
     }
 }
