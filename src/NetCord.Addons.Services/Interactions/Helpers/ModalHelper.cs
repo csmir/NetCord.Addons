@@ -10,7 +10,7 @@ namespace NetCord.Addons.Services.Interactions
     /// </summary>
     public static class ModalHelper
     {
-        private readonly static Lazy<Dictionary<string, ModalInfo>> _modalCache = new();
+        private readonly static Dictionary<string, ModalInfo> _modalCache = new();
         private readonly static object _lock = new();
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace NetCord.Addons.Services.Interactions
         {
             lock (_lock)
             {
-                if (!_modalCache.Value.TryGetValue(modal.CustomId, out var modalInfo))
+                if (!_modalCache.TryGetValue(modal.CustomId, out var modalInfo))
                     modalInfo = modal.Cache(true);
 
                 var sb = new StringBuilder();
@@ -93,9 +93,9 @@ namespace NetCord.Addons.Services.Interactions
 
             if (isLocked)
                 lock (_lock)
-                    _modalCache.Value.Add(info.CustomId, info);
+                    _modalCache.Add(info.CustomId, info);
             else
-                _modalCache.Value.Add(info.CustomId, info);
+                _modalCache.Add(info.CustomId, info);
 
             return info;
         }
@@ -116,7 +116,7 @@ namespace NetCord.Addons.Services.Interactions
 
                 var index = context.Interaction.Data.CustomId.IndexOf(':');
 
-                var info = _modalCache.Value[context.Interaction.Data.CustomId[..index]];
+                var info = _modalCache[context.Interaction.Data.CustomId[..index]];
 
                 if (info.Inputs.Length != context.Components.Count)
                     throw new ArgumentOutOfRangeException(nameof(context), $"The cached modalInfo length does not match the received component length.");
