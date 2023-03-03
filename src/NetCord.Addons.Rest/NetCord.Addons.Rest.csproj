@@ -10,4 +10,8 @@
     <Folder Include="Interactions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NetCord" Version="1.0.0-alpha.162" />
+  </ItemGroup>
+
 </Project>
