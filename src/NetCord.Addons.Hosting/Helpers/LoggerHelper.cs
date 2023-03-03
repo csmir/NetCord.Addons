@@ -4,6 +4,9 @@ using System.Text;
 
 namespace NetCord.Addons.Hosting.Helpers
 {
+    /// <summary>
+    ///     Represents extension methods for configuring logs compatible with <see cref="ILogger"/>.
+    /// </summary>
     public static class LoggerHelper
     {
         public static LogLevel ToLogLevel(this LogSeverity severity)

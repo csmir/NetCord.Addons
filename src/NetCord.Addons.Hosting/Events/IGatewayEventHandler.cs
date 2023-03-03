@@ -12,8 +12,14 @@ namespace NetCord.Addons.Hosting
         /// </summary>
         public GatewayClient Client { get; }
 
+        /// <summary>
+        ///     Subscribes the event to the implemented handling method.
+        /// </summary>
         public void Subscribe();
 
+        /// <summary>
+        ///     Unsubscribes the event from the implemented handling method.
+        /// </summary>
         public void UnSubscribe();
     }
 }

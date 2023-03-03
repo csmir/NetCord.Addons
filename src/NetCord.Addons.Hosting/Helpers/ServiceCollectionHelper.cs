@@ -4,6 +4,9 @@ using System.ComponentModel;
 
 namespace NetCord.Addons.Hosting
 {
+    /// <summary>
+    ///     Represents extension methods that help configure the service collection.
+    /// </summary>
     public static class ServiceCollectionHelper
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
