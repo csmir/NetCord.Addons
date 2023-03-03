@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Services", "src\NetCord.Addons.Services\NetCord.Addons.Services.csproj", "{B1E1331A-A073-44BD-9341-175FE2628CB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCord.Addons.Services", "src\NetCord.Addons.Services\NetCord.Addons.Services.csproj", "{B1E1331A-A073-44BD-9341-175FE2628CB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Rest", "src\NetCord.Addons.Rest\NetCord.Addons.Rest.csproj", "{A9D9CD96-0860-4456-885B-1F02C4339800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCord.Addons.Rest", "src\NetCord.Addons.Rest\NetCord.Addons.Rest.csproj", "{A9D9CD96-0860-4456-885B-1F02C4339800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Gateway", "src\NetCord.Addons.Gateway\NetCord.Addons.Gateway.csproj", "{E62FFF65-6A06-48DA-A1E8-124529137271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCord.Addons.Gateway", "src\NetCord.Addons.Gateway\NetCord.Addons.Gateway.csproj", "{E62FFF65-6A06-48DA-A1E8-124529137271}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{59097817-85DE-48F1-8CD9-5EBD545716F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Tests.Console", "src\NetCord.Addons.ConsoleTest\NetCord.Addons.Tests.Console.csproj", "{5C1754D7-42AE-4629-A219-7018C0574368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCord.Addons.Tests.Console", "src\NetCord.Addons.ConsoleTest\NetCord.Addons.Tests.Console.csproj", "{5C1754D7-42AE-4629-A219-7018C0574368}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Hosting", "src\NetCord.Addons.Hosting\NetCord.Addons.Hosting.csproj", "{77C3148F-3884-47D7-8D72-486E875E6DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCord.Addons.Hosting", "src\NetCord.Addons.Hosting\NetCord.Addons.Hosting.csproj", "{77C3148F-3884-47D7-8D72-486E875E6DF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{39AC48C8-E929-4700-967C-A5B8327E17DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCord.Addons.Generators.GatewayEventHandlers", "src\NetCord.Addons.Generators.GatewayEventHandlers\NetCord.Addons.Generators.GatewayEventHandlers.csproj", "{605638FA-562F-4AC9-945D-8156194C28FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +45,17 @@ Global
 		{77C3148F-3884-47D7-8D72-486E875E6DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C3148F-3884-47D7-8D72-486E875E6DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C3148F-3884-47D7-8D72-486E875E6DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605638FA-562F-4AC9-945D-8156194C28FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605638FA-562F-4AC9-945D-8156194C28FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605638FA-562F-4AC9-945D-8156194C28FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605638FA-562F-4AC9-945D-8156194C28FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5C1754D7-42AE-4629-A219-7018C0574368} = {59097817-85DE-48F1-8CD9-5EBD545716F3}
+		{605638FA-562F-4AC9-945D-8156194C28FC} = {39AC48C8-E929-4700-967C-A5B8327E17DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B519F449-4A2C-4F70-81ED-D1B48B3862E2}

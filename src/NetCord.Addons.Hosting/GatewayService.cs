@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NetCord.Addons.Hosting.Helpers;
 using NetCord.Gateway;
 
 namespace NetCord.Addons.Hosting
@@ -30,14 +31,22 @@ namespace NetCord.Addons.Hosting
         {
             Logger = loggerFactory.CreateLogger(GetType().Name);
             Client = client;
+
+            Client.Log += LogAsync;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        protected virtual async ValueTask LogAsync(LogMessage arg)
+        {
+            Logger.Log(arg.Severity.ToLogLevel(), "{}", arg.ToLogString());
+            await Task.CompletedTask;
+        }
+
+        public virtual async Task StartAsync(CancellationToken cancellationToken)
         {
             await Client.StartAsync();
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
             await Client.CloseAsync();
         }
