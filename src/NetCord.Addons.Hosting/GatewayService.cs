@@ -23,19 +23,13 @@ namespace NetCord.Addons.Hosting
         /// <summary>
         /// 
         /// </summary>
-        public virtual IOptions<GatewayConfigurationOptions> Options { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="client"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="options"></param>
-        public GatewayService(GatewayClient client, ILoggerFactory loggerFactory, IOptions<GatewayConfigurationOptions> options)
+        public GatewayService(GatewayClient client, ILoggerFactory loggerFactory)
         {
             Logger = loggerFactory.CreateLogger(GetType().Name);
             Client = client;
-            Options = options;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
