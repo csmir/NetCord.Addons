@@ -1,7 +1,9 @@
 ﻿using NetCord;
 using NetCord.Rest;
+using System.Data;
+using System.Runtime.CompilerServices;
 
-namespace NetCord.Addons.Rest.Helpers.Properties
+namespace NetCord.Addons.Rest
 {
     public static class EmbedPropertiesHelper
     {
@@ -32,6 +34,36 @@ namespace NetCord.Addons.Rest.Helpers.Properties
         public static EmbedProperties WithTitle(this EmbedProperties properties, string title)
         {
             properties.Title = title;
+            return properties;
+        }
+
+        public static EmbedProperties WithImage(this EmbedProperties properties, EmbedImageProperties image)
+        {
+            properties.Image = image;
+            return properties;
+        }
+
+        public static EmbedProperties WithTitleUrl(this EmbedProperties properties, string titleUrl)
+        {
+            properties.Url = titleUrl;
+            return properties;
+        }
+
+        public static EmbedProperties WithThumbnail(this EmbedProperties properties, EmbedThumbnailProperties thumbnail)
+        {
+            properties.Thumbnail = thumbnail;
+            return properties;
+        }
+
+        public static EmbedProperties WithTimestamp(this EmbedProperties properties, DateTimeOffset timestamp)
+        {
+            properties.Timestamp = timestamp;
+            return properties;
+        }
+        
+        public static EmbedProperties WithColor(this EmbedProperties properties, Color color)
+        {
+            properties.Color = color;
             return properties;
         }
     }

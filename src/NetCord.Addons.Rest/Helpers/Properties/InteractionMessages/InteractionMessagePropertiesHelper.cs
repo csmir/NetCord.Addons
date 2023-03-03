@@ -1,4 +1,4 @@
-﻿namespace NetCord.Addons.Rest.Helpers.Properties
+﻿namespace NetCord.Addons.Rest
 {
     public static class InteractionMessagePropertiesHelper
     {
