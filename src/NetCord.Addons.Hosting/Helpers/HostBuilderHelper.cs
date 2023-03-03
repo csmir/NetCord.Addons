@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NetCord.Addons.Hosting.Events;
 using NetCord.Gateway;
@@ -45,7 +44,7 @@ namespace NetCord.Addons.Hosting
 
             if (handlerAssembly is null)
                 throw new ArgumentNullException(
-                    paramName: nameof(handlerAssembly), 
+                    paramName: nameof(handlerAssembly),
                     message: "Unable to discover entry assembly automatically. handlerAssembly will need to be manually implemented.");
 
             var discoveredTypes = handlerAssembly.GetTypes();

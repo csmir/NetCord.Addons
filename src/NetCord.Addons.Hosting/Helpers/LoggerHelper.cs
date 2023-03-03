@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using NetCord.Gateway;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCord.Addons.Hosting.Helpers
 {
@@ -22,7 +17,7 @@ namespace NetCord.Addons.Hosting.Helpers
         public static string ToLogString(this LogMessage message)
         {
             var sb = new StringBuilder();
-            
+
             sb.Append(message.Message);
             sb.Append('.');
 

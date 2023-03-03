@@ -1,7 +1,4 @@
-﻿using NetCord;
-using NetCord.Rest;
-using System.Data;
-using System.Runtime.CompilerServices;
+﻿using NetCord.Rest;
 
 namespace NetCord.Addons.Rest
 {
@@ -60,7 +57,7 @@ namespace NetCord.Addons.Rest
             properties.Timestamp = timestamp;
             return properties;
         }
-        
+
         public static EmbedProperties WithColor(this EmbedProperties properties, Color color)
         {
             properties.Color = color;

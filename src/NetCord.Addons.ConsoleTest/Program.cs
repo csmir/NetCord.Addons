@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Hosting;
 using NetCord.Addons.Hosting;
-using NetCord.Addons.Tests;
 using NetCord.Addons.Tests.Console;
 using NetCord.Gateway;
 
@@ -14,6 +10,7 @@ host.AddGatewayClient<Bot>((hostContext, gatewayContext) =>
     gatewayContext.Token = hostContext.Configuration["token"]!;
     gatewayContext.Intents = GatewayIntents.AllNonPrivileged;
 });
+host.AddEventHandlers();
 
 var app = host.Build();
 

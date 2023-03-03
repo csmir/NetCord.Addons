@@ -1,5 +1,4 @@
 ﻿using NetCord.Rest;
-using System.Diagnostics;
 
 namespace NetCord.Addons.Rest
 {

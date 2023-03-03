@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NetCord.Addons.Rest.Helpers.Properties.Components
+﻿namespace NetCord.Addons.Rest.Helpers.Properties.Components
 {
     internal class ComponentPropertiesHelper
     {

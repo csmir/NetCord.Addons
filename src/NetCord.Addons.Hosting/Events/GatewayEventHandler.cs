@@ -1,9 +1,4 @@
 ﻿using NetCord.Gateway;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCord.Addons.Hosting
 {
@@ -15,7 +10,7 @@ namespace NetCord.Addons.Hosting
         /// <inheritdoc />
         public GatewayClient Client { get; }
 
-        public GatewayEventHandler(GatewayClient client) 
+        public GatewayEventHandler(GatewayClient client)
             => Client = client;
 
         public abstract void Subscribe();
