@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetCord.Addons.Hosting\NetCord.Addons.Hosting.csproj" />
+    <ProjectReference Include="..\NetCord.Addons.Rest\NetCord.Addons.Rest.csproj" />
 	<ProjectReference Include="..\NetCord.Addons.Services\NetCord.Addons.Services.csproj" />
   </ItemGroup>
 
