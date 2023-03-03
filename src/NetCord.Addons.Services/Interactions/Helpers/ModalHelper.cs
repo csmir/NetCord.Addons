@@ -10,7 +10,7 @@ namespace NetCord.Addons.Services.Interactions
     /// </summary>
     public static class ModalHelper
     {
-        private readonly static Lazy<Dictionary<string, ModalInfo>> _modalCache = new(isThreadSafe: true);
+        private readonly static Lazy<Dictionary<string, ModalInfo>> _modalCache = new();
         private readonly static object _lock = new();
 
         /// <summary>
