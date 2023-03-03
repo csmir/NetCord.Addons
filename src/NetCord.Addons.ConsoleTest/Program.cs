@@ -24,8 +24,8 @@ await app.RunAsync();
 
 public class Bot : GatewayService
 {
-    public Bot(GatewayClient client, ILoggerFactory loggerFactory, IOptions<GatewayConfigurationOptions> options)
-        : base(client, loggerFactory, options)
+    public Bot(GatewayClient client, ILoggerFactory loggerFactory)
+        : base(client, loggerFactory)
     {
     }
 }

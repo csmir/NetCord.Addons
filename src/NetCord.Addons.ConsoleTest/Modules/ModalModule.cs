@@ -13,6 +13,8 @@ namespace NetCord.Addons.Tests.Console.Modules
             var modal = Context.Modal<MyModal>();
 
             var input = modal.MyValue;
+
+            await Task.CompletedTask;
         }
     }
 
