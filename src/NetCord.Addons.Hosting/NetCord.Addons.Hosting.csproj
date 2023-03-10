@@ -11,4 +11,8 @@
     <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.83" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\Services\" />
+  </ItemGroup>
+
 </Project>

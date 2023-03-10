@@ -1,5 +1,4 @@
-﻿using NetCord.Gateway;
-using NetCord.Rest;
+﻿using NetCord.Rest;
 
 namespace NetCord.Addons.Rest.Helpers.Webhook
 {

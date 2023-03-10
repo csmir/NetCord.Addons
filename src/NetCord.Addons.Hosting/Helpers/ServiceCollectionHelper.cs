@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NetCord.Gateway;
 using System.ComponentModel;
 
@@ -25,7 +26,7 @@ namespace NetCord.Addons.Hosting
                 WebSocket = context.WebSocket,
             };
 
-            services.AddSingleton(config);
+            services.TryAddSingleton(config);
 
             return services;
         }

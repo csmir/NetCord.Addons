@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NetCord.Addons.Hosting.Events;
 using NetCord.Gateway;
+using NetCord.Services.ApplicationCommands;
+using NetCord.Services.Commands;
+using NetCord.Services.Interactions;
 using System.Reflection;
 
 namespace NetCord.Addons.Hosting
@@ -32,9 +36,9 @@ namespace NetCord.Addons.Hosting
                 });
 
                 services.AddClientConfiguration(gatewayContext);
-                services.AddSingleton<TokenFactory>();
+                services.TryAddSingleton<TokenFactory>();
 
-                services.AddSingleton<GatewayClient>(x =>
+                services.TryAddSingleton<GatewayClient>(x =>
                 {
                     var token = x.GetRequiredService<TokenFactory>()
                         .GetToken();
@@ -73,13 +77,113 @@ namespace NetCord.Addons.Hosting
                 foreach (var discoveredType in discoveredTypes)
                 {
                     if (discoveredType.IsAssignableTo(targetType) && !discoveredType.IsAbstract)
-                        services.AddSingleton(targetType, discoveredType);
+                        services.TryAddSingleton(targetType, discoveredType);
                 }
 
                 services.AddHostedService<GatewayEventHandlerActivator>();
             });
 
             return hostBuilder;
+        }
+
+        public static IHostBuilder AddCommandService<T, THandler>(this IHostBuilder hostBuilder, Action<HostBuilderContext, CommandServiceHostingContext<T>> configure)
+            where T : CommandContext where THandler : CommandServiceHandler<T>
+        {
+            hostBuilder.ConfigureServices((context, services) =>
+            {
+                var serviceContext = new CommandServiceHostingContext<T>();
+                configure(context, serviceContext);
+
+                services.Configure<CommandServiceOptions<T>>(options =>
+                {
+                    options.ContextFactory = serviceContext.ContextFactory;
+                    options.ErrorAction = serviceContext.ErrorAction;
+                    options.Bindings = serviceContext.Bindings;
+                    options.RegistrationAssemblies = serviceContext.RegistrationAssemblies;
+                    options.Prefix = serviceContext.Prefix;
+                });
+
+                services.TryAddSingleton(serviceContext.Configuration);
+                services.TryAddSingleton<CommandService<T>>();
+
+                services.TryAddSingleton<IServiceHandler, THandler>();
+
+                services.AddHostedService<ServiceHandlerActivator>();
+            });
+
+            return hostBuilder;
+        }
+
+        public static IHostBuilder AddCommandService<T>(this IHostBuilder hostBuilder, Action<HostBuilderContext, CommandServiceHostingContext<T>> configure)
+            where T : CommandContext
+        {
+            return hostBuilder.AddCommandService<T, CommandServiceHandler<T>>(configure);
+        }
+
+        public static IHostBuilder AddApplicationCommandService<T, THandler>(this IHostBuilder hostBuilder, Action<HostBuilderContext, ApplicationCommandServiceHostingContext<T>> configure)
+            where T : ApplicationCommandContext where THandler : ApplicationCommandServiceHandler<T>
+        {
+            hostBuilder.ConfigureServices((context, services) =>
+            {
+                var serviceContext = new ApplicationCommandServiceHostingContext<T>();
+                configure(context, serviceContext);
+
+                services.Configure<ApplicationCommandServiceOptions<T>>(options =>
+                {
+                    options.ContextFactory = serviceContext.ContextFactory;
+                    options.ErrorAction = serviceContext.ErrorAction;
+                    options.Bindings = serviceContext.Bindings;
+                    options.RegistrationAssemblies = serviceContext.RegistrationAssemblies;
+                });
+
+                services.TryAddSingleton(serviceContext.Configuration);
+                services.TryAddSingleton<ApplicationCommandService<T>>();
+
+                services.TryAddSingleton<IServiceHandler, THandler>();
+
+                services.AddHostedService<ServiceHandlerActivator>();
+            });
+
+            return hostBuilder;
+        }
+
+        public static IHostBuilder AddApplicationCommandService<T>(this IHostBuilder hostBuilder, Action<HostBuilderContext, ApplicationCommandServiceHostingContext<T>> configure)
+            where T : ApplicationCommandContext
+        {
+            return hostBuilder.AddApplicationCommandService<T, ApplicationCommandServiceHandler<T>>(configure);
+        }
+
+        public static IHostBuilder AddInteractionService<T, THandler>(this IHostBuilder hostBuilder, Action<HostBuilderContext, InteractionServiceHostingContext<T>> configure)
+            where T : InteractionContext where THandler : InteractionServiceHandler<T>
+        {
+            hostBuilder.ConfigureServices((context, services) =>
+            {
+                var serviceContext = new InteractionServiceHostingContext<T>();
+                configure(context, serviceContext);
+
+                services.Configure<InteractionServiceOptions<T>>(options =>
+                {
+                    options.ContextFactory = serviceContext.ContextFactory;
+                    options.ErrorAction = serviceContext.ErrorAction;
+                    options.Bindings = serviceContext.Bindings;
+                    options.RegistrationAssemblies = serviceContext.RegistrationAssemblies;
+                });
+
+                services.TryAddSingleton(serviceContext.Configuration);
+                services.TryAddSingleton<InteractionService<T>>();
+
+                services.TryAddSingleton<IServiceHandler, THandler>();
+
+                services.AddHostedService<ServiceHandlerActivator>();
+            });
+
+            return hostBuilder;
+        }
+
+        public static IHostBuilder AddInteractionService<T>(this IHostBuilder hostBuilder, Action<HostBuilderContext, InteractionServiceHostingContext<T>> configure)
+            where T : InteractionContext
+        {
+            return hostBuilder.AddInteractionService<T, InteractionServiceHandler<T>>(configure);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace NetCord.Addons.Tests.Console.Modules.Modals
             => "my_customId";
 
         public override string Title
-            => "This is my Modal";
+            => "This is my ModalInteraction";
 
         [Label("A label")]
         [CustomId("a_custom_id")]
